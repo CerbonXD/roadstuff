@@ -1,8 +1,8 @@
 {
   "type": "minecraft:stonecutting",
+  "count": 2,
   "ingredient": {
     "item": "roadstuff:concrete"
   },
-  "result": "roadstuff:concrete_wall",
-  "count": 1
+  "result": "roadstuff:concrete_pressure_plate"
 }
