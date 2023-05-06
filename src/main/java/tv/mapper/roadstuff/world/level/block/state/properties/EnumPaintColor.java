@@ -1,7 +1,7 @@
 package tv.mapper.roadstuff.world.level.block.state.properties;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringRepresentable;
-import net.minecraft.network.chat.TranslatableComponent;
 
 public enum EnumPaintColor implements StringRepresentable
 {
@@ -24,7 +24,7 @@ public enum EnumPaintColor implements StringRepresentable
 
     public String getNameTranslated()
     {
-        return new TranslatableComponent("roadstuff.message.paint.color." + this.name).getString();
+        return Component.translatable("roadstuff.message.paint.color." + this.name).getString();
     }
 
     public int getId()

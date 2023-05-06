@@ -51,8 +51,8 @@ public class RoadStuff
         if (!RSConfig.BITUMEN_GENERATION.get()) {
             LOGGER.info("Road Stuff worldgen is disabled by config.");
         } else {
-            RSConfiguredFeatures.register(modEventBus);
-            RSPlacedFeatures.register(modEventBus);
+            RSConfiguredFeatures.CONFIGURED_FEATURES.register(modEventBus);
+            RSPlacedFeatures.PLACED_FEATURES.register(modEventBus);
         }
 
         RSBlockRegistry.init();
