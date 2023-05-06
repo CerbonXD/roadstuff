@@ -7,8 +7,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -139,8 +137,8 @@ public class BrushItem extends Item
 
             if(stack.getTag().getInt("paint") == 0)
                 color = "X";
-            list.add(new TextComponent(new TranslatableComponent("roadstuff.message.brush.gui.pattern").getString() + stack.getTag().getInt("pattern") + "; " + new TranslatableComponent("roadstuff.message.brush.gui.color").getString() + color));
-            list.add(new TextComponent(new TranslatableComponent("roadstuff.message.brush.gui.paint").getString() + stack.getTag().getInt("paint")));
+            list.add(Component.literal(Component.translatable("roadstuff.message.brush.gui.pattern").getString() + stack.getTag().getInt("pattern") + "; " + Component.translatable("roadstuff.message.brush.gui.color").getString() + color));
+            list.add(Component.literal(Component.translatable("roadstuff.message.brush.gui.paint").getString() + stack.getTag().getInt("paint")));
         }
     }
 
@@ -435,7 +433,7 @@ public class BrushItem extends Item
                 else if(((PaintSystem)state.getBlock()).getMaterialType() == 1)
                     params = concreteMap.getParamsFor(block);
                 nbt.putInt("pattern", params[1]);
-                player.displayClientMessage(new TextComponent(ChatFormatting.WHITE + "Copied pattern " + params[1] + " into brush"), true);
+                player.displayClientMessage(Component.literal(ChatFormatting.WHITE + "Copied pattern " + params[1] + " into brush"), true);
             }
             return InteractionResult.SUCCESS;
         }

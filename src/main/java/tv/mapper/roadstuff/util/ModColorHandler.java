@@ -20,7 +20,7 @@ public class ModColorHandler
 
         for(RegistryObject<Block> block : RSBlockRegistry.MOD_PAINTABLEBLOCKS)
         {
-            if(block.get().getRegistryName().toString().contains("yellow_line"))
+            if (block.getKey() != null && block.getKey().location().getPath().contains("yellow_line"))
                 blockColors.register(yellowColor, block.get());
         }
     }

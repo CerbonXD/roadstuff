@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -61,13 +61,13 @@ public class PaintBucketBlock extends CustomBlock implements SimpleWaterloggedBl
     public PaintBucketBlock(Properties properties, ToolTypes tool)
     {
         super(properties, tool);
-        this.registerDefaultState(this.defaultBlockState().setValue(PAINT, 0).setValue(COLOR, EnumPaintColor.WHITE).setValue(DIRECTION, Direction.NORTH).setValue(WATERLOGGED, Boolean.valueOf(false)));
+        this.registerDefaultState(this.defaultBlockState().setValue(PAINT, 0).setValue(COLOR, EnumPaintColor.WHITE).setValue(DIRECTION, Direction.NORTH).setValue(WATERLOGGED, Boolean.FALSE));
     }
 
     public PaintBucketBlock(Properties properties, ToolTypes tool, ToolTiers tier)
     {
         super(properties, tool, tier);
-        this.registerDefaultState(this.defaultBlockState().setValue(PAINT, 0).setValue(COLOR, EnumPaintColor.WHITE).setValue(DIRECTION, Direction.NORTH).setValue(WATERLOGGED, Boolean.valueOf(false)));
+        this.registerDefaultState(this.defaultBlockState().setValue(PAINT, 0).setValue(COLOR, EnumPaintColor.WHITE).setValue(DIRECTION, Direction.NORTH).setValue(WATERLOGGED, Boolean.FALSE));
     }
 
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context)
@@ -95,9 +95,9 @@ public class PaintBucketBlock extends CustomBlock implements SimpleWaterloggedBl
         CompoundTag tagCompound = stack.getTag();
         if(tagCompound != null)
         {
-            return this.defaultBlockState().setValue(PAINT, stack.getTag().getInt("paint")).setValue(COLOR, EnumPaintColor.values()[stack.getTag().getInt("color")]).setValue(DIRECTION, context.getHorizontalDirection()).setValue(WATERLOGGED, Boolean.valueOf(Boolean.valueOf(FluidState.getType() == Fluids.WATER)));
+            return this.defaultBlockState().setValue(PAINT, stack.getTag().getInt("paint")).setValue(COLOR, EnumPaintColor.values()[stack.getTag().getInt("color")]).setValue(DIRECTION, context.getHorizontalDirection()).setValue(WATERLOGGED, FluidState.getType() == Fluids.WATER);
         }
-        return this.defaultBlockState().setValue(PAINT, 0).setValue(COLOR, EnumPaintColor.WHITE).setValue(DIRECTION, context.getHorizontalDirection()).setValue(WATERLOGGED, Boolean.valueOf(Boolean.valueOf(FluidState.getType() == Fluids.WATER)));
+        return this.defaultBlockState().setValue(PAINT, 0).setValue(COLOR, EnumPaintColor.WHITE).setValue(DIRECTION, context.getHorizontalDirection()).setValue(WATERLOGGED, FluidState.getType() == Fluids.WATER);
     }
 
     @Override
@@ -105,7 +105,7 @@ public class PaintBucketBlock extends CustomBlock implements SimpleWaterloggedBl
     {
         if(state.getValue(WATERLOGGED))
         {
-            player.displayClientMessage(new TranslatableComponent("roadstuff.message.bucket.underwater"), true);
+            player.displayClientMessage(Component.translatable("roadstuff.message.bucket.underwater"), true);
             return InteractionResult.FAIL;
         }
 
@@ -118,7 +118,7 @@ public class PaintBucketBlock extends CustomBlock implements SimpleWaterloggedBl
             if(paint <= 0)
             {
                 if(!world.isClientSide)
-                    player.displayClientMessage(new TranslatableComponent("roadstuff.message.bucket.empty"), true);
+                    player.displayClientMessage(Component.translatable("roadstuff.message.bucket.empty"), true);
                 return InteractionResult.FAIL;
             }
 
@@ -147,19 +147,19 @@ public class PaintBucketBlock extends CustomBlock implements SimpleWaterloggedBl
             {
                 if(dye.getDyeColor() == DyeColor.WHITE && state.getValue(COLOR) == EnumPaintColor.YELLOW)
                 {
-                    player.displayClientMessage(new TranslatableComponent("roadstuff.message.bucket.yellow"), true);
+                    player.displayClientMessage(Component.translatable("roadstuff.message.bucket.yellow"), true);
                     return InteractionResult.FAIL;
                 }
                 else if(dye.getDyeColor() == DyeColor.YELLOW && state.getValue(COLOR) == EnumPaintColor.WHITE)
                 {
-                    player.displayClientMessage(new TranslatableComponent("roadstuff.message.bucket.white"), true);
+                    player.displayClientMessage(Component.translatable("roadstuff.message.bucket.white"), true);
                     return InteractionResult.FAIL;
                 }
             }
 
             if(state.getValue(PAINT) >= MAX_PAINT)
             {
-                player.displayClientMessage(new TranslatableComponent("roadstuff.message.bucket.full"), true);
+                player.displayClientMessage(Component.translatable("roadstuff.message.bucket.full"), true);
                 return InteractionResult.FAIL;
             }
 
@@ -222,7 +222,7 @@ public class PaintBucketBlock extends CustomBlock implements SimpleWaterloggedBl
     {
         if(state.getValue(WATERLOGGED))
         {
-            worldIn.setBlock(pos, state.setValue(WATERLOGGED, Boolean.valueOf(false)), 3);
+            worldIn.setBlock(pos, state.setValue(WATERLOGGED, Boolean.FALSE), 3);
             return Fluids.WATER;
         }
         else
@@ -248,7 +248,7 @@ public class PaintBucketBlock extends CustomBlock implements SimpleWaterloggedBl
         {
             if(!worldIn.isClientSide())
             {
-                worldIn.setBlock(pos, state.setValue(WATERLOGGED, Boolean.valueOf(true)), 3);
+                worldIn.setBlock(pos, state.setValue(WATERLOGGED, Boolean.TRUE), 3);
                 worldIn.scheduleTick(pos, fluidStateIn.getType(), fluidStateIn.getType().getTickDelay(worldIn));
             }
 

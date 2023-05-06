@@ -1,6 +1,7 @@
 package tv.mapper.roadstuff.data.gen;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.DataGenerator;
@@ -13,6 +14,7 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import tv.mapper.mapperbase.data.gen.BaseLootTables;
 import tv.mapper.mapperbase.world.level.block.SlopeBlock;
@@ -91,14 +93,14 @@ public class RSLootTables extends BaseLootTables
         else
             drop = RSBlockRegistry.CONCRETE.get();
 
-        String name = block.getRegistryName().toString().replace(modid + ":", "");
+        String name = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath();
         LootPool.Builder builder = LootPool.lootPool().name(name).setRolls(ConstantValue.exactly(1)).add(LootItem.lootTableItem(drop)).when(ExplosionCondition.survivesExplosion());
         return LootTable.lootTable().withPool(builder);
     }
 
     protected LootTable.Builder createSlopeTable(String modid, Block block, int mat)
     {
-        String name = block.getRegistryName().toString().replace(modid + ":", "");
+        String name = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath();
         Block drop;
 
         if(mat == 0)

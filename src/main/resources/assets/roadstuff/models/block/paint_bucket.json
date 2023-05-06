@@ -3,6 +3,7 @@
         "paint_bucket": "roadstuff:block/paint_bucket",
         "particle": "roadstuff:block/paint_bucket"
     },
+	"render_type": "cutout",
     "elements": [
 		{
 			"name": "west",

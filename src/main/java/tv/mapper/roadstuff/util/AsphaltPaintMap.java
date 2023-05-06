@@ -2,8 +2,11 @@ package tv.mapper.roadstuff.util;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import tv.mapper.roadstuff.world.level.block.RSBlockRegistry;
+
+import java.util.Objects;
 
 public class AsphaltPaintMap extends Int2ObjectArrayMap<Block>
 {
@@ -24,17 +27,18 @@ public class AsphaltPaintMap extends Int2ObjectArrayMap<Block>
         for(RegistryObject<Block> object : RSBlockRegistry.MOD_PAINTABLEBLOCKS)
         {
             block = object.get();
+            String blockPath = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath();
 
-            if(block.getRegistryName().toString().contains("asphalt_"))
+            if(blockPath.contains("asphalt_"))
             {
-                if(block.getRegistryName().toString().contains("_white_"))
+                if(blockPath.contains("_white_"))
                 {
-                    if(block.getRegistryName().toString().contains("_slope_") && slope)
+                    if(blockPath.contains("_slope_") && slope)
                     {
                         register(0, index, block);
                         index++;
                     }
-                    else if(!block.getRegistryName().toString().contains("_slope_") && !slope)
+                    else if(!blockPath.contains("_slope_") && !slope)
                     {
                         register(0, index, block);
                         index++;
@@ -52,17 +56,18 @@ public class AsphaltPaintMap extends Int2ObjectArrayMap<Block>
         for(RegistryObject<Block> object : RSBlockRegistry.MOD_PAINTABLEBLOCKS)
         {
             block = object.get();
+            String blockPath = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath();
 
-            if(block.getRegistryName().toString().contains("asphalt_"))
+            if(blockPath.contains("asphalt_"))
             {
-                if(block.getRegistryName().toString().contains("_yellow_"))
+                if(blockPath.contains("_yellow_"))
                 {
-                    if(block.getRegistryName().toString().contains("_slope_") && slope)
+                    if(blockPath.contains("_slope_") && slope)
                     {
                         register(1, index, block);
                         index++;
                     }
-                    else if(!block.getRegistryName().toString().contains("_slope_") && !slope)
+                    else if(!blockPath.contains("_slope_") && !slope)
                     {
                         register(1, index, block);
                         index++;
