@@ -1,0 +1,19 @@
+// 1.19.2	2023-05-06T12:14:55.294141	Tags for minecraft:block
+a7f07040ad2517d2d6803571ca6cda6d35c90f00 data/forge/tags/blocks/fence_gates.json
+a72307d9748d1d6bae604cbb1145f8e088a52f9e data/forge/tags/blocks/fences.json
+a13bc7c91a05d493a1d45f6a6cdeb830d1ee556e data/forge/tags/blocks/needs_wood_tool.json
+36391b1de0744bbd1f7362f29f7c9033603152c5 data/forge/tags/blocks/ores.json
+36391b1de0744bbd1f7362f29f7c9033603152c5 data/forge/tags/blocks/ores/bitumen.json
+5280a08dbca2978dcb16292be6c20bd76ba54105 data/forge/tags/blocks/pressure_plates.json
+b60a3d247ba2f6a980a2fffc8987a092016ae7f6 data/forge/tags/blocks/storage_blocks.json
+b60a3d247ba2f6a980a2fffc8987a092016ae7f6 data/forge/tags/blocks/storage_blocks/bitumen.json
+a72307d9748d1d6bae604cbb1145f8e088a52f9e data/minecraft/tags/blocks/fences.json
+7dadde147f7a626dbf3ec4296d07c4ba623b66e2 data/minecraft/tags/blocks/mineable/pickaxe.json
+a226d77d89d7986332edc7da3f5150f435612124 data/minecraft/tags/blocks/slabs.json
+fb95588242cd501bf3f4fa9cc575966b37201486 data/minecraft/tags/blocks/stairs.json
+73c99c48fdf98e4e6be2d0084357328cb52e4596 data/minecraft/tags/blocks/walls.json
+6fe00736f7e2389b986586f066104a82fe9448e4 data/roadstuff/tags/blocks/asphalt.json
+665f29d240f676baeb754bf7719df43f3d50bcca data/roadstuff/tags/blocks/asphalt_road.json
+4845efbac940192216199b5750b6c2ec5db71ea8 data/roadstuff/tags/blocks/concrete.json
+0c0b090ae5840027e94aba599fc04b96cdbab0b3 data/roadstuff/tags/blocks/concrete_road.json
+76cb73e0db3e41c8382d0fd351f389fa9c6d9c20 data/roadstuff/tags/blocks/reflectors.json

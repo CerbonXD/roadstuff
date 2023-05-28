@@ -1,0 +1,10 @@
+// 1.19.2	2023-05-06T12:14:55.294319	Tags for minecraft:item
+f8c564dd1d598c44cb2510f81b7ace0e3d423196 data/forge/tags/items/bitumen.json
+36391b1de0744bbd1f7362f29f7c9033603152c5 data/forge/tags/items/ores/bitumen.json
+b60a3d247ba2f6a980a2fffc8987a092016ae7f6 data/forge/tags/items/storage_blocks/bitumen.json
+5d4c47be10c29b12617e9e9f188ba257acf1f2af data/minecraft/tags/items/coals.json
+a287a45cf45fa5d3046362aee3ae181af9cf9adc data/roadstuff/tags/items/asphalt.json
+7661f0ddbd41d9d9818e076d79f1c10393d6df05 data/roadstuff/tags/items/asphalt_road.json
+ba83ca0c59db6a34d2195e7404fa5a3d9110b677 data/roadstuff/tags/items/concrete.json
+846d68193a9079e03e9b26cf7864aad8cf6a4026 data/roadstuff/tags/items/concrete_road.json
+76cb73e0db3e41c8382d0fd351f389fa9c6d9c20 data/roadstuff/tags/items/reflectors.json
