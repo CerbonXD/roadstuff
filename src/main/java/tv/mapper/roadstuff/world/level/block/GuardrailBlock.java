@@ -69,10 +69,10 @@ public class GuardrailBlock extends CrossCollisionBlock implements ToolManager
         return facing.getAxis().getPlane() == Direction.Plane.HORIZONTAL ? stateIn.setValue(PROPERTY_BY_DIRECTION.get(facing), Boolean.valueOf(this.canConnect(facingState, facingState.isFaceSturdy(worldIn, facingPos, facing.getOpposite()), facing.getOpposite()))) : super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 
-    public boolean canConnect(BlockState p_220111_1_, boolean p_220111_2_, Direction p_220111_3_)
+    public boolean canConnect(BlockState blockState, boolean p_220111_2_, Direction p_220111_3_)
     {
-        Block block = p_220111_1_.getBlock();
-        boolean flag = block instanceof GuardrailBlock && p_220111_1_.getMaterial() == this.material;
+        Block block = blockState.getBlock();
+        boolean flag = block instanceof GuardrailBlock;
         return !isExceptionForConnection(block.defaultBlockState()) && p_220111_2_ || flag;
     }
 

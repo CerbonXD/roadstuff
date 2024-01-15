@@ -1,25 +1,25 @@
 package tv.mapper.roadstuff.client.gui.screens;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.IntStream;
-
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import org.jetbrains.annotations.NotNull;
 import tv.mapper.roadstuff.RoadStuff;
 import tv.mapper.roadstuff.network.BrushPacket;
 import tv.mapper.roadstuff.network.RSNetwork;
 import tv.mapper.roadstuff.util.ModConstants;
 import tv.mapper.roadstuff.world.level.block.state.properties.EnumPaintColor;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.IntStream;
 
 public class GuiBrush extends Screen
 {
@@ -99,13 +99,13 @@ public class GuiBrush extends Screen
     }
 
     @Override
-    public void render(PoseStack stack, int mouseX, int mouseY, float partialTicks)
+    public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks)
     {
-        super.render(stack, mouseX, mouseY, partialTicks);
+        super.render(guiGraphics, mouseX, mouseY, partialTicks);
 
-        renderBackground(stack, 0);
+        renderBackground(guiGraphics);
         RenderSystem.setShaderTexture(0, brush_gui);
-        blit(stack, guiLeft, guiTop, 0, 0, WIDTH, HEIGHT);
+        guiGraphics.blit(brush_gui, guiLeft, guiTop, 0, 0, WIDTH, HEIGHT);
 
         // Draws patterns
         int j = 0;
@@ -115,7 +115,7 @@ public class GuiBrush extends Screen
             if(i + (scroll * 9) < ModConstants.PATTERNS)
             {
                 RenderSystem.setShaderTexture(0, new ResourceLocation(RoadStuff.MODID, "textures/block/" + (i + (9 * scroll)) + ".png"));
-                blit(stack, guiLeft + 16 * j + 9 + j * 2, guiTop + 18 + row, 0, 0, 16, 16, 16, 16);
+                guiGraphics.blit(new ResourceLocation(RoadStuff.MODID, "textures/block/" + (i + (9 * scroll)) + ".png"), guiLeft + 16 * j + 9 + j * 2, guiTop + 18 + row, 0, 0, 16, 16, 16, 16);
 
                 j++;
                 if(j >= 9)
@@ -128,7 +128,7 @@ public class GuiBrush extends Screen
 
         // Draws current selected pattern
         RenderSystem.setShaderTexture(0, new ResourceLocation(RoadStuff.MODID, "textures/block/" + pattern + ".png"));
-        blit(stack, guiLeft + 193, guiTop + 18, 0, 0, 16, 16, 16, 16);
+        guiGraphics.blit(new ResourceLocation(RoadStuff.MODID, "textures/block/" + pattern + ".png"), guiLeft + 193, guiTop + 18, 0, 0, 16, 16, 16, 16);
 
         // Draws favorites
         int fav_y = 54;
@@ -137,7 +137,7 @@ public class GuiBrush extends Screen
             if(favorites[i] != 0)
             {
                 RenderSystem.setShaderTexture(0, new ResourceLocation(RoadStuff.MODID, "textures/block/" + (favorites[i] + ".png")));
-                blit(stack, guiLeft + 193, guiTop + fav_y, 0, 0, 16, 16, 16, 16);
+                guiGraphics.blit( new ResourceLocation(RoadStuff.MODID, "textures/block/" + (favorites[i] + ".png")), guiLeft + 193, guiTop + fav_y, 0, 0, 16, 16, 16, 16);
             }
             fav_y += 18;
         }
@@ -147,7 +147,7 @@ public class GuiBrush extends Screen
         {
             posX = Math.toIntExact(Math.round((mouseX - guiLeft - 9) / 18) * 18) + guiLeft + 9;
             posY = Math.toIntExact(Math.round((mouseY - guiTop - 17) / 18) * 18) + guiTop + 18;
-            fill(stack, posX, posY, posX + 16, posY + 16, new Color(255, 255, 255, 128).getRGB());
+            guiGraphics.fill(posX, posY, posX + 16, posY + 16, new Color(255, 255, 255, 128).getRGB());
         }
 
         // Draws hover square above favs
@@ -155,7 +155,7 @@ public class GuiBrush extends Screen
         {
             favX = Math.toIntExact(Math.round((mouseX - guiLeft - 12) / 18) * 18) + guiLeft + 13;
             favY = Math.toIntExact(Math.round((mouseY - guiTop - 17) / 18) * 18) + guiTop + 18;
-            fill(stack, favX, favY, favX + 16, favY + 16, new Color(255, 255, 255, 128).getRGB());
+            guiGraphics.fill(favX, favY, favX + 16, favY + 16, new Color(255, 255, 255, 128).getRGB());
         }
 
         // Draws selection box around the selected pattern
@@ -164,33 +164,33 @@ public class GuiBrush extends Screen
         if(boxY > guiTop && boxY < guiTop + HEIGHT - 27)
         {
             RenderSystem.setShaderTexture(0, brush_gui);
-            blit(stack, selectX, boxY, 256 - 22, 256 - 22, 22, 22);
+            guiGraphics.blit(brush_gui, selectX, boxY, 256 - 22, 256 - 22, 22, 22);
         }
 
         String title = textTitle.getString();
-        this.font.draw(stack, title, guiLeft + WIDTH / 2 - font.width(title) / 2, guiTop + 6, 4210752);
+        guiGraphics.drawString(this.font, title, guiLeft + WIDTH / 2 - font.width(title) / 2, guiTop + 6, 4210752, false);
 
         // Scrollbar
         RenderSystem.setShaderTexture(0, brush_gui);
-        blit(stack, guiLeft + WIDTH - 42, (int)(guiTop + 18 + 164 * this.currentScroll), 256 - 24, 0, 12, 15);
+        guiGraphics.blit(brush_gui, guiLeft + WIDTH - 42, (int)(guiTop + 18 + 164 * this.currentScroll), 256 - 24, 0, 12, 15);
 
         if(pattern == 0)
-            this.font.drawShadow(stack, textEraser, guiLeft + 225, guiTop + 22, new Color(255, 255, 255).getRGB());
+            guiGraphics.drawString(this.font, textEraser, guiLeft + 225, guiTop + 22, new Color(255, 255, 255).getRGB(), true);
         else
-            this.font.drawShadow(stack, textPattern.getString() + pattern, guiLeft + 225, guiTop + 22, new Color(255, 255, 255).getRGB());
-        this.font.drawShadow(stack, textPaint.getString() + paint, guiLeft + 225, guiTop + 40, new Color(255, 255, 255).getRGB());
-        this.font.drawShadow(stack, textColor.getString() + EnumPaintColor.getColorByID(color).getNameTranslated(), guiLeft + 225, guiTop + 58, new Color(255, 255, 255).getRGB());
+            guiGraphics.drawString(this.font, textPattern.getString() + pattern, guiLeft + 225, guiTop + 22, new Color(255, 255, 255).getRGB(), true);
+        guiGraphics.drawString(this.font, textPaint.getString() + paint, guiLeft + 225, guiTop + 40, new Color(255, 255, 255).getRGB(), true);
+        guiGraphics.drawString(this.font, textColor.getString() + EnumPaintColor.getColorByID(color).getNameTranslated(), guiLeft + 225, guiTop + 58, new Color(255, 255, 255).getRGB(), true);
 
         // Draw tooltip
         if(mouseX > guiLeft + 7 && mouseX < guiLeft + WIDTH - 43 && mouseY > guiTop + 14 && mouseY < guiTop + 196)
         {
             int patternHover = (posX - guiLeft - 9) / 18 + ((posY - guiTop - 9) / 18) * 9 + scroll * 9;
             if(patternHover == 0)
-                renderTooltip(stack, textEraser, mouseX, mouseY);
+                guiGraphics.renderTooltip(this.font, textEraser, mouseX, mouseY);
             else
             {
                 MutableComponent textPatternDisplay = Component.translatable(textPattern.getString() + patternHover);
-                renderTooltip(stack, textPatternDisplay, mouseX, mouseY);
+                guiGraphics.renderTooltip(this.font, textPatternDisplay, mouseX, mouseY);
             }
         }
         // Draw favorite tooltip
@@ -215,7 +215,7 @@ public class GuiBrush extends Screen
                 patternTooltipFinal.add(patternTooltip);
             }
 
-            renderTooltip(stack, patternTooltipFinal, Optional.empty(), mouseX, mouseY);
+            guiGraphics.renderTooltip(this.font, patternTooltipFinal, Optional.empty(), mouseX, mouseY);
         }
 
     }
