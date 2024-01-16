@@ -4,16 +4,12 @@ import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ConfigTracker;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import tv.mapper.roadstuff.config.RSConfig;
 import tv.mapper.roadstuff.network.RSNetwork;
 import tv.mapper.roadstuff.proxy.ClientProxy;
 import tv.mapper.roadstuff.proxy.IProxy;
@@ -42,17 +38,7 @@ public class RoadStuff
 
     public RoadStuff()
     {
-        RSConfig.initialize();
-
-        ConfigTracker.INSTANCE.loadConfigs(ModConfig.Type.COMMON, FMLPaths.CONFIGDIR.get());
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
-//        if (!RSConfig.BITUMEN_GENERATION.get()) {
-//            LOGGER.info("Road Stuff worldgen is disabled by config.");
-//        } else {
-//            RSConfiguredFeatures.CONFIGURED_FEATURES.register(modEventBus);
-//            RSPlacedFeatures.PLACED_FEATURES.register(modEventBus);
-//        }
 
         RSBlockRegistry.init();
         RSItemRegistry.init();
